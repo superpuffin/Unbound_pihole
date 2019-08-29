@@ -55,7 +55,6 @@ RUN curl -ssL ftp://FTP.INTERNIC.NET/domain/named.cache > /etc/unbound/root.hint
 
 EXPOSE 10053/udp
 EXPOSE 10053
-EXPOSE 53/udp 53/tcp
 
 USER root
 CMD [ "/usr/local/sbin/unbound -c /etc/unbound/unbound.conf -d -v" ]
