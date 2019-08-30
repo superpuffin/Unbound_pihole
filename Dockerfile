@@ -1,4 +1,4 @@
-FROM multiarch/debian-debootstrap:armhf-buster-slim
+FROM debian:buster
 
 ENV VERSION 1.9.3
 ENV OPENSSL_VERSION 1.1.1c
