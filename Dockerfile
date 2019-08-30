@@ -1,8 +1,8 @@
-FROM debian:buster
+FROM multiarch/debian-debootstrap:armhf-buster-slim
 
 ENV VERSION 1.9.3
 ENV OPENSSL_VERSION 1.1.1c
-#WORKDIR /usr/local/src/
+WORKDIR /usr/local/src/
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
         software-properties-common \
