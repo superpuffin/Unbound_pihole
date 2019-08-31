@@ -11,7 +11,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
         autoconf \
         curl \
         ca-certificates \
-        dns-root-hints \
+        dns-root-data \
         gcc \
         bison \
         libevent-dev \
