@@ -41,7 +41,9 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
         && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN useradd --system unbound --home /home/unbound --create-home
-RUN ldconfig && mv /usr/local/etc/unbound/unbound.conf /usr/local/etc/unbound/unbound.conf.orig
+RUN ldconfig \
+        && mv /usr/local/etc/unbound/unbound.conf /usr/local/etc/unbound/unbound.conf.orig \
+        && cp /etc/ssl/certs/ca-certificates.crt /usr/local/etc/ca-certificates.crt
 COPY unbound.conf /usr/local/etc/unbound/unbound.conf
 RUN  chown -R unbound:unbound /usr/local/etc/unbound \
         && mkdir /usr/local/src/conf \
