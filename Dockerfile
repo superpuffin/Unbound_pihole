@@ -4,12 +4,14 @@ ENV VERSION 1.9.3
 ENV OPENSSL_VERSION 1.1.1c
 WORKDIR /usr/local/src/
 
-RUN apt-get update && apt-get install --no-install-recommends -y \
+RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
         software-properties-common \
         build-essential \
         make \
         autoconf \
         curl \
+        ca-certificates \
+        dns-root-hints \
         gcc \
         bison \
         libevent-dev \
@@ -19,14 +21,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         libtool \
         tar \
         dnsutils \
-        && curl -sSL https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz | tar xz  \
-        && $(pwd)/openssl-${OPENSSL_VERSION}/config \
-        && make && make test \
-        && make install \
-        && rm -rf ./openssl-${OPENSSL_VERSION} \
         && curl -sSL https://www.nlnetlabs.nl/downloads/unbound/unbound-${VERSION}.tar.gz | tar xz  \
         && cd ./unbound-${VERSION} \
-        && $(pwd)/configure \
+        && $(pwd)/configure --prefix=/ \
         && make \
         && make install \
         && rm -rf ./unbound-${VERSION} \
@@ -46,12 +43,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 
 RUN useradd --system unbound --home /home/unbound --create-home
 RUN ldconfig
-ADD unbound.conf /etc/unbound/unbound.conf
+COPY unbound.conf /etc/unbound/unbound.conf
 RUN chown -R unbound:unbound /etc/unbound/ && chown -R unbound:unbound /usr/local/etc/unbound
 
 USER unbound
 RUN unbound-anchor -a /etc/unbound/root.key ; true
-RUN curl -ssL ftp://FTP.INTERNIC.NET/domain/named.cache > /etc/unbound/root.hints
 
 EXPOSE 10053/udp
 EXPOSE 10053
