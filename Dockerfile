@@ -5,7 +5,6 @@ ENV OPENSSL_VERSION 1.1.1c
 WORKDIR /usr/local/src/
 
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
-        software-properties-common \
         build-essential \
         make \
         autoconf \
@@ -21,7 +20,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
         libtool \
         tar \
         dnsutils \
-        && curl -sSL https://www.nlnetlabs.nl/downloads/unbound/unbound-${VERSION}.tar.gz | tar xz  \
+        && curl --cacert /etc/ssl/certs/ca-certificates.crt -sSL https://www.nlnetlabs.nl/downloads/unbound/unbound-${VERSION}.tar.gz | tar xz  \
         && cd ./unbound-${VERSION} \
         && $(pwd)/configure --prefix=/ \
         && make \
@@ -33,7 +32,6 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
         bison \
         autoconf \
         make \
-        build-essential \
         libexpat1-dev \
         libevent-dev \
         cpp \
