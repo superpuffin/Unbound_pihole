@@ -17,7 +17,7 @@ services:
       WEBPASSWORD: '<YOUR PASSWORD HERE>'
       DNS1: 127.0.0.1#10053
       DNS2: 127.0.0.2#10000
-      ServerIP: 192.168.200.4
+      ServerIP: <YOUR IP HERE>
       #INTERFACE: 'eth0'
     # Volumes store your data between container upgrades
     volumes:
