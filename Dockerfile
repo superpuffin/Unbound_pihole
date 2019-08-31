@@ -10,7 +10,6 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
         autoconf \
         curl \
         ca-certificates \
-        dns-root-data \
         gcc \
         bison \
         libevent-dev \
@@ -20,11 +19,13 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
         libtool \
         tar \
         dnsutils \
+        libssl-dev \
         && curl --cacert /etc/ssl/certs/ca-certificates.crt -sSL https://www.nlnetlabs.nl/downloads/unbound/unbound-${VERSION}.tar.gz | tar xz  \
         && cd ./unbound-${VERSION} \
-        && $(pwd)/configure --prefix=/ \
+        && ./configure \
         && make \
         && make install \
+        && cd /usr/local/src \
         && rm -rf ./unbound-${VERSION} \
         && apt-get purge -y \
         build-essential \
@@ -40,16 +41,17 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
         && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN useradd --system unbound --home /home/unbound --create-home
-RUN ldconfig
-COPY unbound.conf /etc/unbound/unbound.conf
-RUN chown -R unbound:unbound /etc/unbound/ && chown -R unbound:unbound /usr/local/etc/unbound
-
-USER unbound
-RUN unbound-anchor -a /etc/unbound/root.key ; true
+RUN ldconfig && mv /usr/local/etc/unbound/unbound.conf /usr/local/etc/unbound/unbound.conf.orig
+COPY unbound.conf /usr/local/etc/unbound/unbound.conf
+RUN  chown -R unbound:unbound /usr/local/etc/unbound \
+        && mkdir /usr/local/src/conf \
+        && cp -v /usr/local/etc/unbound/* /usr/local/src/conf/
+COPY --chown=root:root start.sh /start.sh
+RUN chmod 754 /start.sh
 
 EXPOSE 10053/udp
 EXPOSE 10053
 
 USER root
-CMD [ "/usr/local/sbin/unbound -c /etc/unbound/unbound.conf -d -v" ]
+CMD [ "/start.sh" ]
 
