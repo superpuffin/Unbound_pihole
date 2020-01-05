@@ -1,6 +1,6 @@
 FROM debian:buster
 
-ENV VERSION 1.9.3
+ENV VERSION 1.9.6
 ENV OPENSSL_VERSION 1.1.1c
 WORKDIR /usr/local/src/
 
@@ -38,12 +38,12 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
         cpp \
         && apt-get autoremove --purge -y \
         && apt-get clean \
-        && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN useradd --system unbound --home /home/unbound --create-home
-RUN ldconfig \
+        && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+        && useradd --system unbound --home /home/unbound --create-home \
+        && ldconfig \
         && mv /usr/local/etc/unbound/unbound.conf /usr/local/etc/unbound/unbound.conf.orig \
         && cp /etc/ssl/certs/ca-certificates.crt /usr/local/etc/ca-certificates.crt
+        
 COPY unbound.conf /usr/local/etc/unbound/unbound.conf
 RUN  chown -R unbound:unbound /usr/local/etc/unbound \
         && mkdir /usr/local/src/conf \
