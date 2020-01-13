@@ -9,7 +9,7 @@ if (!$args) {
 
 docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 .
 
-} elseif ($args[0] =! "") {
+} else {
     switch ($args[0]) {
         "armhf" { docker buidlx build --platform linux/arm/v7 .; break }
         "amd64" { docker buildx build --platform linux/amd64 .; break }
