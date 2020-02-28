@@ -1,6 +1,6 @@
 FROM debian:buster
 
-ENV VERSION 1.9.6
+ENV VERSION 1.10.0
 ENV OPENSSL_VERSION 1.1.1c
 WORKDIR /usr/local/src/
 
