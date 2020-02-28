@@ -1,6 +1,7 @@
 FROM debian:buster
 
-ENV VERSION 1.10.0
+ENV VERSION 1.9.6
+ENV OPENSSL_VERSION 1.1.1c
 WORKDIR /usr/local/src/
 
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
