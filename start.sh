@@ -3,7 +3,7 @@
 COPY_CONFIG=${COPY_CONFIG:-no}
 CRT_FILE=/usr/local/etc/ca-certificates.crt
 
-if [ "$COPY_CONFIG" = "yes" ]
+if [ ! -f "/usr/local/etc/unbound/unbound.conf" ]
 then
     # Commands for fist setup and copying conf files to host
     # when a volume is mounted
