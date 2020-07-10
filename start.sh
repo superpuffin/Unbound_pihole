@@ -1,6 +1,5 @@
 #!/bin/bash
 
-COPY_CONFIG=${COPY_CONFIG:-no}
 CRT_FILE=/usr/local/etc/ca-certificates.crt
 
 if [ ! -f "/usr/local/etc/unbound/unbound.conf" ]
