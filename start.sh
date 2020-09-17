@@ -25,4 +25,4 @@ curl --cacert "$CRT_FILE" \
     /usr/local/etc/unbound/root.hints
 chown -R unbound:unbound /usr/local/etc/unbound
 
-exec /usr/local/sbin/unbound -c /usr/local/etc/unbound/unbound.conf -d -v -v
+exec /usr/local/sbin/unbound -c /usr/local/etc/unbound/unbound.conf -d -d
