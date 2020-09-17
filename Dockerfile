@@ -1,6 +1,6 @@
 FROM debian:buster
 
-ENV VERSION 1.10.1
+ENV VERSION 1.11.0
 WORKDIR /usr/local/src/
 
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
         && curl --cacert /etc/ssl/certs/ca-certificates.crt -sSL https://www.nlnetlabs.nl/downloads/unbound/unbound-${VERSION}.tar.gz | tar xz  \
         && cd ./unbound-${VERSION} \
         && ./configure \
-        && make \
+        && make -j \
         && make install \
         && cd /usr/local/src \
         && rm -rf ./unbound-${VERSION} \

@@ -23,7 +23,6 @@ services:
     volumes:
        - './etc-pihole/:/etc/pihole/'
        - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
-       - '/etc/letsencrypt/live:/etc/letsencrypt/live:ro'
     dns:
       - 127.0.0.1
 #      - 1.1.1.1

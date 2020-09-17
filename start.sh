@@ -20,9 +20,9 @@ fi
 
 # Have unbound anchor refresh root keys at every restart
 unbound-anchor
-curl --cacert /etc/ssl/certs/ca-certificates.crt \
+curl --cacert "$CRT_FILE" \
     -sSL https://www.internic.net/domain/named.root > \
     /usr/local/etc/unbound/root.hints
 chown -R unbound:unbound /usr/local/etc/unbound
 
-exec /usr/local/sbin/unbound -c /usr/local/etc/unbound/unbound.conf -d -v
+exec /usr/local/sbin/unbound -c /usr/local/etc/unbound/unbound.conf -d -v -v
