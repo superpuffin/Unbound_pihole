@@ -18,7 +18,7 @@ services:
       DNS1: 127.0.0.1#10053
       DNS2: 127.0.0.2#10000
       ServerIP: <YOUR IP HERE>
-      #INTERFACE: 'eth0'
+      #INTERFACE: '<YOUR INTERFACE HERE>'
     # Volumes store your data between container upgrades
     volumes:
        - './etc-pihole/:/etc/pihole/'
