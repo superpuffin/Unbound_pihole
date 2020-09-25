@@ -13,7 +13,7 @@ services:
     image: pihole/pihole:latest
     network_mode: host
     environment:
-      TZ: 'Europe/Amsterdam'
+      TZ: '<YOUR TIMEZONE HERE>'
       WEBPASSWORD: '<YOUR PASSWORD HERE>'
       DNS1: 127.0.0.1#10053
       DNS2: 127.0.0.2#10000
