@@ -1,6 +1,6 @@
 FROM debian:buster
 
-ENV VERSION 1.13.2
+ENV VERSION 1.14.0
 WORKDIR /usr/local/src/
 
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
